@@ -1,0 +1,16 @@
+Model 1: Without heading
+
+seed: 2 circles: 3.3738480690373644
+seed: 3 circles: 11.881801516062321
+seed: 4 circles: 5.900217783153823
+seed: 5 circles: 6.027321815006535
+seed: 6 circles: 0.06888405815574916
+seed: 7 circles: -3.2724450361692954
+seed: 8 circles: 3.908387416884337
+seed: 9 circles: 5.586088070836675
+seed: 10 circles: 9.464331691993658
+seed: 13 circles: 3.8451384643953723
+seed: 15 circles: 7.046362243278379
+
+Model 2:
+

@@ -30,12 +30,9 @@ class SimpleCarAgent(Agent):
         :param history_data: количество хранимых нами данных о результатах предыдущих шагов
         """
         self.evaluate_mode = False  # этот агент учится или экзаменутеся? если учится, то False
-        self._rays = 5 # выберите число лучей ладара; например, 5
+        self._rays = 5  # выберите число лучей ладара; например, 5
         # here +2 is for 2 inputs from elements of Action that we are trying to predict
-        self.neural_net = Network([self.rays + 4,
-                                   # внутренние слои сети: выберите, сколько и в каком соотношении вам нужно
-                                   # например, (self.rays + 4) * 2 или просто число
-                                   (self.rays + 4)*2, 1],
+        self.neural_net = Network([self.rays + 4, (self.rays + 4)*2, self.rays + 4, 1],
                                   output_function=lambda x: x, output_derivative=lambda x: 1)
         self.sensor_data_history = deque([], maxlen=history_data)
         self.chosen_actions_history = deque([], maxlen=history_data)

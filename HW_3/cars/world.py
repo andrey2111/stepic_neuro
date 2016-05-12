@@ -27,10 +27,10 @@ class World(metaclass=ABCMeta):
 
 class SimpleCarWorld(World):
     COLLISION_PENALTY = 0 * 1e-1
-    HEADING_REWARD = 0 * 1e-1
-    WRONG_HEADING_PENALTY = 0 * 1e0
+    HEADING_REWARD = 32 * 1e-1
+    WRONG_HEADING_PENALTY = 32 * 1e-1
     IDLENESS_PENALTY = 32 * 1e-1
-    SPEEDING_PENALTY = 32 * 1e-1
+    SPEEDING_PENALTY = 0 * 1e-1
     MIN_SPEED = 0.1 * 1e0
     MAX_SPEED = 0.7 * 1e0
 
@@ -105,8 +105,8 @@ class SimpleCarWorld(World):
         :return reward: награду агента (возможно, отрицательную)
         """
         a = np.sin(angle(-state.position, state.heading))
-        heading_reward = 1 if a > 0.1 else a if a > 0 else 0
-        heading_penalty = a if a <= 0 else 0
+        heading_reward = 1 if a < 0.1 else a if a < 0 else 0
+        heading_penalty = -a if a >= 0 else 0
         idle_penalty = 0 if abs(state.velocity) > self.MIN_SPEED else -self.IDLENESS_PENALTY
         speeding_penalty = 0 if abs(state.velocity) < self.MAX_SPEED else -self.SPEEDING_PENALTY * abs(state.velocity)
         collision_penalty = - max(abs(state.velocity), 0.1) * int(collision) * self.COLLISION_PENALTY
@@ -164,7 +164,7 @@ class SimpleCarWorld(World):
                     break
                 sleep(0.05)
 
-        return np.mean(rewards)
+        return self.circles[agent]  # np.mean(rewards)
 
     def vision_for(self, agent):
         """
